@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import { fileURLToPath } from 'node:url';
 import { withZephyr, ModuleFederationOptions } from 'vite-plugin-zephyr';
 
 const mfConfig: ModuleFederationOptions = {
@@ -26,6 +27,9 @@ const mfConfig: ModuleFederationOptions = {
     react: { singleton: true },
     'react-dom': { singleton: true },
   },
+  runtimePlugins: [
+    fileURLToPath(new URL('./src/runtime/remote-url-override-runtime-plugin.ts', import.meta.url)),
+  ]
 };
 
 export default defineConfig({
